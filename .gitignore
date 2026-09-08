@@ -1,0 +1,21 @@
+# Python / Virtual Environments
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Node / Frontend
+node_modules/
+.next/
+build/
+dist/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+Desktop.ini

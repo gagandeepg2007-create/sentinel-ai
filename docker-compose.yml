@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Main API & Database Orchestrator
+  backend:
+    build: ./sentinel-backend
+    ports: 
+      - "8000:8000"
+    depends_on: 
+      - mongo
+      - db
+  
+  # AI Threat Inference Service
+  ml-service:
+    build: ./vigilx_ml_service
+    ports: 
+      - "8005:8005"
+    depends_on: 
+      - mongo
+
+  # NoSQL Data Plane for Syslogs
+  mongo:
+    image: mongo:latest
+    ports: 
+      - "27017:27017"
+
+  # Relational Database for User/Session Auth
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: sentinel_db
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  # Next.js Frontend Dashboard
+  frontend:
+    build: ./sentinel-frontend
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - backend
